@@ -1,0 +1,36 @@
+build:
+  gpu: true
+  cuda: "10.2"
+  python_version: "3.8"
+  python_requirements: "requirements.txt"
+  run:
+    - "apt-get update && apt install -y libgl1-mesa-glx"
+    # CMAKE_PREFIX_PATH fix is from https://github.com/readthedocs/readthedocs.org/issues/5867
+    - "git clone https://github.com/pixray/diffvg && cd diffvg && git submodule update --init --recursive && CMAKE_PREFIX_PATH=$(pyenv prefix) DIFFVG_CUDA=1 python setup.py install && pip install basicsr"
+
+# image: "r8.im/pixray/api"
+# predict: "cogrun.py:PixrayApi"
+
+image: "r8.im/pixray/text2image"
+# image: "r8.im/pixray/text2image-future"
+predict: "cogrun.py:Text2Image"
+
+# image: "r8.im/dribnet/8bidoug"
+# predict: "cogrun.py:EightBidG"
+
+# image: "r8.im/dribnet/pixray-text2pixel"
+# predict: "cogrun.py:Text2Pixel"
+
+# image: "r8.im/dribnet/pixray-genesis"
+# predict: "cog_genesis.py:GenesisPredictor"
+
+# image: "r8.im/dribnet/pixray-tiler"
+# predict: "cogrun.py:Tiler"
+
+# predict: "cogrun.py:PixrayRaw"
+# predict: "cogrun.py:PixrayVdiff"
+
+# OLDSTUFF
+# predict: "cogrun.py:BasePixrayPredictor"
+# predict: "cogrun.py:PixrayVqgan"
+# predict: "cogrun.py:PixrayPixel"
